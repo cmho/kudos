@@ -16,11 +16,11 @@ if (array_key_exists('give', $_GET)) {
   $work = filter_var($_GET['give'], FILTER_SANITIZE_STRING);
 
   // check if the work exists so people can't fill the db full of junk
-  $exists = $db->query("select count(*) from works where id={$work};");
+  $exists = $db->query("select count(*) from works where id=\"{$work}\";");
   // check if the IP address has already left kudos
-  $prevkudos = $db->query("select count(*) from kudos where workid={$work} and ipaddr={$ip};");
+  $prevkudos = $db->query("select count(*) from kudos where workid=\"{$work}\" and ipaddr=\"{$ip}\";");
   if ($exists > 0 && $prevkudos == 0) {
-    $db->query("insert into kudos (workid, ipaddr) values ({$work}, {$ip});");
+    $db->query("insert into kudos (workid, ipaddr) values (\"{$work}\", \"{$ip}\");");
     $content = "Thanks for leaving kudos! You can now close this window.";
     require("./template.php");
   }
@@ -41,7 +41,7 @@ if (array_key_exists('give', $_GET)) {
 
   // serves this as an image
   header("Content-Type: image/png");
-  echo $imagick->getImageBlob();
+  echo $image->getImageBlob();
 } else if (array_key_exists(FORM_PAGE, $_GET)) {
   // We're showing a simple form for creating new works
   
@@ -50,14 +50,14 @@ if (array_key_exists('give', $_GET)) {
 } else if (array_key_exists('newwork', $_POST)) {
   $work = filter_var($_POST['newwork'], FILTER_SANITIZE_STRING);
   // check if the work exists already since we can't do duplicates
-  $exists = $db->query("select count(*) from works where id={$work};");
+  $exists = $db->query("select count(*) from works where id=\"{$work}\";");
   $content = "";
   if ($exists == 0) {
     // it doesn't already exist, so add it to the database
     $result = $db->query("insert into works (id) values ('{$work}');");
     // show a response with a message that tells us if it worked or not
     if ($result) {
-      $content = "<p>Your new work has been added! The work ID is {$work}.</p>";
+      $content = "<p>Your new work has been added! The work ID is \"{$work}\".</p>";
       $content .= "<p>Link to give kudos: <a href=\"//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}?give={$work}\">//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}?give={$work}</a></p>";
       $content .= "<p>Link to kudos counter: <a href=\"//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}?show={$work}\">//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}?show={$work}</a></p>";
       $content .= file_get_contents("./form.php");
