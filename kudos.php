@@ -16,9 +16,19 @@ if (array_key_exists('give', $_GET)) {
   $work = filter_var($_GET['give'], FILTER_SANITIZE_STRING);
 
   // check if the work exists so people can't fill the db full of junk
-  $exists = $db->query("select count(*) from works where id=\"{$work}\";");
+  $resexists = $db->query("select count(*) from works where id=\"{$work}\";");
+  if ($resexists) {
+    $resexists = $resexists->fetchArray();
+    print_r($resexists);
+    $exists = $resexists['count'];
+  }
   // check if the IP address has already left kudos
-  $prevkudos = $db->query("select count(*) from kudos where workid=\"{$work}\" and ipaddr=\"{$ip}\";");
+  $resprevkudos = $db->query("select count(*) from kudos where workid=\"{$work}\" and ipaddr=\"{$ip}\";");
+  if ($resprevkudos) {
+    $resprevkudos = $resprevkudos->fetchArray();
+    print_r($resprevkudos);
+    $prevkudos = $resprevkudos['count'];
+  }
   if ($exists > 0 && $prevkudos == 0) {
     $db->query("insert into kudos (workid, ipaddr) values (\"{$work}\", \"{$ip}\");");
     $content = "Thanks for leaving kudos! You can now close this window.";
