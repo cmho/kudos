@@ -31,6 +31,9 @@ if (array_key_exists('give', $_GET)) {
     $db->query("insert into kudos (workid, ipaddr) values (\"{$work}\", \"{$ip}\");");
     $content = "Thanks for leaving kudos! You can now close this window.";
     require("./template.php");
+  } else {
+    $content = "You've already left kudos on this work.";
+    require("./template.php");
   }
 } else if (array_key_exists('show', $_GET)) {
   // We're showing the number of kudos
