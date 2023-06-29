@@ -22,7 +22,7 @@ if (array_key_exists('give', $_GET)) {
   if ($exists > 0 && $prevkudos == 0) {
     $db->query("insert into kudos (workid, ipaddr) values ({$work}, {$ip});");
     $content = "Thanks for leaving kudos! You can now close this window."
-    require("./template.php");
+    include("./template.php");
   }
 } else if (array_key_exists('show', $_GET)) {
   // We're showing the number of kudos
@@ -46,7 +46,7 @@ if (array_key_exists('give', $_GET)) {
   // We're showing a simple form for creating new works
   
   $content = file_get_contents("./form.php");
-  require("./template.php");
+  include("./template.php");
 } else if (array_key_exists('newwork', $_POST)) {
   $work = filter_var($_POST['newwork'], FILTER_SANITIZE_STRING);
   // check if the work exists already since we can't do duplicates
@@ -70,7 +70,7 @@ if (array_key_exists('give', $_GET)) {
     $content .= file_get_contents("./form.php");
   }
   
-  require("./template.php");
+  include("./template.php");
 }
 
 // if we haven't closed connection yet, we're done now.
