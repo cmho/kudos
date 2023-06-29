@@ -19,15 +19,13 @@ if (array_key_exists('give', $_GET)) {
   $resexists = $db->query("select count(*) from works where id=\"{$work}\";");
   if ($resexists) {
     $resexists = $resexists->fetchArray();
-    print_r($resexists);
-    $exists = $resexists['count'];
+    $exists = $resexists['count(*)'];
   }
   // check if the IP address has already left kudos
   $resprevkudos = $db->query("select count(*) from kudos where workid=\"{$work}\" and ipaddr=\"{$ip}\";");
   if ($resprevkudos) {
     $resprevkudos = $resprevkudos->fetchArray();
-    print_r($resprevkudos);
-    $prevkudos = $resprevkudos['count'];
+    $prevkudos = $resprevkudos['count(*)'];
   }
   if ($exists > 0 && $prevkudos == 0) {
     $db->query("insert into kudos (workid, ipaddr) values (\"{$work}\", \"{$ip}\");");
@@ -41,12 +39,12 @@ if (array_key_exists('give', $_GET)) {
   $res = $db->query("select count(*) from works where id={$work};");
   if ($res) {
     $res = $res->fetchArray();
-    $count = $res['count'];
+    $count = $res['count(*)'];
     print_r($res);
   } else {
     $count = 0;
   }
-  /*// creates a new image
+  // creates a new image
   $image = new Imagick();
   // writes the number
   $id->annotation(0, 0, $count);
@@ -57,7 +55,7 @@ if (array_key_exists('give', $_GET)) {
 
   // serves this as an image
   header("Content-Type: image/png");
-  echo $image->getImageBlob();*/
+  echo $image->getImageBlob();
 } else if (array_key_exists(FORM_PAGE, $_GET)) {
   // We're showing a simple form for creating new works
   
