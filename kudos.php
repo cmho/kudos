@@ -43,7 +43,6 @@ if (array_key_exists('give', $_GET)) {
   if ($res) {
     $res = $res->fetchArray();
     $count = $res['count(*)'];
-    print_r($res);
   } else {
     $count = 0;
   }
