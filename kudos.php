@@ -28,10 +28,12 @@ if (array_key_exists('give', $_GET)) {
   // We're showing the number of kudos
   
   $work = filter_var($_GET['show'], FILTER_SANITIZE_STRING);
-  $count = $db->query("select count(*) from works where id={$work};");
+  $res = $db->query("select count(*) from works where id={$work};");
+  $count = $res->fetchArray();
+  print_r($count);
 
   // creates a new image
-  $image = new Imagick();
+  /*$image = new Imagick();
   // writes the number
   $id->annotation(0, 0, $count);
   $image->newImage(50, 300, "none");
@@ -41,7 +43,7 @@ if (array_key_exists('give', $_GET)) {
 
   // serves this as an image
   header("Content-Type: image/png");
-  echo $image->getImageBlob();
+  echo $image->getImageBlob();*/
 } else if (array_key_exists(FORM_PAGE, $_GET)) {
   // We're showing a simple form for creating new works
   
