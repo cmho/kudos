@@ -47,8 +47,8 @@ if (array_key_exists('give', $_GET)) {
   // creates a new image
   $image = new Imagick();
   // writes the number
-  $id->annotation(20, 20, $count);
-  $image->newImage(50, 300, "none");
+  $id->annotation(50, 50, $count);
+  $image->newImage(100, 500, "none");
   $image->setImageFormat("png");
   $image->drawImage($id);
   $image->trimImage(0);
