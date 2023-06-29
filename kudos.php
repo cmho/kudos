@@ -29,11 +29,15 @@ if (array_key_exists('give', $_GET)) {
   
   $work = filter_var($_GET['show'], FILTER_SANITIZE_STRING);
   $res = $db->query("select count(*) from works where id={$work};");
-  $count = $res->fetchArray();
-  print_r($count);
-
-  // creates a new image
-  /*$image = new Imagick();
+  if ($res) {
+    $res = $res->fetchArray();
+    $count = $res['count'];
+    print_r($res);
+  } else {
+    $count = 0;
+  }
+  /*// creates a new image
+  $image = new Imagick();
   // writes the number
   $id->annotation(0, 0, $count);
   $image->newImage(50, 300, "none");
