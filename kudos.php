@@ -39,7 +39,7 @@ if (array_key_exists('give', $_GET)) {
   // We're showing the number of kudos
   
   $work = filter_var($_GET['show'], FILTER_SANITIZE_STRING);
-  $res = $db->query("select count(*) from works where workid=\"{$work}\";");
+  $res = $db->query("select count(*) from kudos where workid=\"{$work}\";");
   if ($res) {
     $res = $res->fetchArray();
     $count = $res['count(*)'];
