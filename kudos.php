@@ -50,7 +50,7 @@ if (array_key_exists('give', $_GET)) {
   $image = new Imagick();
   // writes the number
   $id->annotation(50, 50, $count);
-  $image->newImage(100, 500, "none");
+  $image->newImage(100, 500, "white");
   $image->setImageFormat("png");
   $image->drawImage($id);
   $image->trimImage(0);
