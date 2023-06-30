@@ -20,10 +20,16 @@ sudo apt-get install -y libsqlite3-0 libsqlite3-dev php-sqlite3
 
 If it says to enable any modules for your web server, use the provided commands. Then, reload your web server to load all the new extensions.
 
+## Using This Thing
+
+The first thing you'll want to do is go to `[web root]/kudos.php?addwork` and, well, add some work IDs. These are arbitrary strings, so you can do numbers, or abbreviations, or whole-ass sentences, though they will get sanitized to prevent someone messing with your database. Once you submit the form, it'll give you a pair of links: one for people to visit to give kudos, and the other to an image that displays the number of kudos.
+
+When you're linking to the `/kudos?give=[id]` link, you may want to add the `target="_blank"` attribute to the link so it opens in a new window and doesn't navigate people away from the page!
+
 
 ## Customizing
 
-There are some customizable settings in config.php! You don't need to edit them to have it work, but you might want to.
+There are some customizable settings in config.php! You don't need to edit them to have it work, but you might want to. You can change the font by dropping additional font files into your install and changing the file in the text settings.
 
 If you like, you can also change the look and feel of the interface by editing the html in `template.php` and the css in `style.css`. Just don't touch the line that says `<?= $content; ?>` since that prints the page content.
 
