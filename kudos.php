@@ -68,7 +68,7 @@ if (array_key_exists('give', $_GET)) {
   // check if the work exists already since we can't do duplicates
   $exists = $db->query("select count(*) from works where id=\"{$work}\";");
   $content = "";
-  if ($exists == 0) {
+  if ($exists) {
     // it doesn't already exist, so add it to the database
     $result = $db->query("insert into works (id) values ('{$work}');");
     // show a response with a message that tells us if it worked or not
